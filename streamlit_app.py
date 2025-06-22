@@ -78,38 +78,83 @@ def display_basic_concepts():
     # 階層構造の図示
     st.subheader("📊 尺度水準の階層構造")
     
-    # 階層図の作成
+    # ピラミッド図の作成
     fig = go.Figure()
     
-    # 階層を表現するための座標
-    levels = ['名義尺度', '順序尺度', '間隔尺度', '比率尺度']
+    # 階層データ
+    levels = ['比率尺度', '間隔尺度', '順序尺度', '名義尺度']
     properties = [
-        ['分類'],
-        ['分類', '順序'],
+        ['分類', '順序', '等間隔', '絶対零点'],
         ['分類', '順序', '等間隔'],
-        ['分類', '順序', '等間隔', '絶対零点']
+        ['分類', '順序'],
+        ['分類']
+    ]
+    colors = ['#0abde3', '#48dbfb', '#feca57', '#ff6b6b']
+    examples = [
+        '身長、体重、年収',
+        '温度(℃)、偏差値',
+        '成績、満足度',
+        '性別、血液型'
     ]
     
-    colors = ['#ff6b6b', '#feca57', '#48dbfb', '#0abde3']
+    # ピラミッド形状を作成
+    pyramid_widths = [4, 3, 2, 1]  # 各層の幅
+    y_positions = [0, 1, 2, 3]     # 各層のY座標
     
-    for i, (level, props, color) in enumerate(zip(levels, properties, colors)):
-        fig.add_trace(go.Bar(
-            name=level,
-            x=[level],
-            y=[len(props)],
-            text=f"{level}<br>{'・'.join(props)}",
-            textposition='inside',
-            marker_color=color,
-            textfont=dict(size=12, color='white'),
-            hovertemplate=f"<b>{level}</b><br>特性: {', '.join(props)}<extra></extra>"
-        ))
+    for i, (level, props, color, width, y_pos, example) in enumerate(zip(levels, properties, colors, pyramid_widths, y_positions, examples)):
+        # 各層の矩形を作成
+        x_center = 0
+        x_left = x_center - width/2
+        x_right = x_center + width/2
+        
+        fig.add_shape(
+            type="rect",
+            x0=x_left, y0=y_pos,
+            x1=x_right, y1=y_pos + 0.8,
+            fillcolor=color,
+            line=dict(color="white", width=2),
+            opacity=0.8
+        )
+        
+        # テキストを追加
+        fig.add_annotation(
+            x=x_center,
+            y=y_pos + 0.4,
+            text=f"<b>{level}</b><br>{'・'.join(props)}<br><i>{example}</i>",
+            showarrow=False,
+            font=dict(size=10, color="white"),
+            align="center"
+        )
     
+    # レイアウト設定
     fig.update_layout(
-        title="尺度水準の階層構造と特性",
-        xaxis_title="尺度水準",
-        yaxis_title="累積特性数",
-        showlegend=False,
-        height=400
+        title="尺度水準の階層構造（包含関係）",
+        xaxis=dict(
+            showgrid=False,
+            showticklabels=False,
+            zeroline=False,
+            range=[-3, 3]
+        ),
+        yaxis=dict(
+            showgrid=False,
+            showticklabels=False,
+            zeroline=False,
+            range=[-0.5, 4.5]
+        ),
+        plot_bgcolor='rgba(0,0,0,0)',
+        paper_bgcolor='rgba(0,0,0,0)',
+        height=400,
+        showlegend=False
+    )
+    
+    # 説明文を追加
+    fig.add_annotation(
+        x=0,
+        y=-0.3,
+        text="上位の尺度は下位の尺度の特性をすべて含む",
+        showarrow=False,
+        font=dict(size=12, color="gray"),
+        align="center"
     )
     
     st.plotly_chart(fig, use_container_width=True)
