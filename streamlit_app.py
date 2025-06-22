@@ -151,7 +151,7 @@ def display_basic_concepts():
     fig.add_annotation(
         x=0,
         y=-0.3,
-        text="上位の尺度は下位の尺度の特性をすべて含む",
+        text="上位の尺度ほど多くの統計的操作が可能",
         showarrow=False,
         font=dict(size=12, color="gray"),
         align="center"
