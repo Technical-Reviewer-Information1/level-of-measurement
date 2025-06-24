@@ -29,7 +29,9 @@ if 'quiz_total' not in st.session_state:
 
 def display_basic_concepts():
     """基本概念のページ"""
-    st.title("📚 尺度水準の基本概念")
+    st.title("📚 尺度水準学習Webアプリケーション")
+    st.caption("Created by Dit-Lab.(Daiki ITO) ")
+    st.caption("Supported by Tomoaki ATSUMI")
     
     st.markdown("""
     ## 尺度水準とは？
