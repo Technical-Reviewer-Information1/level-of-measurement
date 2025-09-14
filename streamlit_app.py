@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.express as px
-import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import random
 
@@ -15,13 +14,9 @@ st.set_page_config(
 
 # ページ選択をメインエリアに配置
 st.title("データの尺度水準（pp.12-13）")
-page = st.selectbox(
-    "学習ページを選択",
-    ["基本概念", "詳細解説", "実践例", "クイズ", "データ分析体験"]
-)
+# タブでページ選択
+tab1, tab2, tab3, tab4, tab5 = st.tabs(["基本概念", "詳細解説", "実践例", "クイズ", "データ分析体験"])
 
-# デモデータ使用のチェックボックス
-use_demo_data = st.checkbox("デモデータを使用する", value=True)
 st.markdown("---")
 
 # セッション状態の初期化
@@ -80,135 +75,42 @@ def display_basic_concepts():
         - 例：性別、血液型、職業
         """)
     
-    # 階層構造の図示
+    # 階層構造の表示
     st.subheader("📊 尺度水準の階層構造")
-    
-    # ピラミッド図の作成
-    fig = go.Figure()
-    
-    # 階層データ（上から下へ：高次→低次）
-    levels = ['比率尺度', '間隔尺度', '順序尺度', '名義尺度']
-    properties = [
-        ['分類', '順序', '等間隔', '絶対零点'],
-        ['分類', '順序', '等間隔'],
-        ['分類', '順序'],
-        ['分類']
-    ]
-    colors = ['#2ecc71', '#3498db', '#f39c12', '#e74c3c']  # より明瞭な色
-    examples = [
-        '身長、体重、年収',
-        '温度(℃)、偏差値',
-        '成績、満足度',
-        '性別、血液型'
-    ]
 
-    # より見やすい階層構造を作成（逆ピラミッド）
-    pyramid_widths = [8, 6, 4, 2]  # 各層の幅を拡大
-    y_positions = [3, 2, 1, 0]     # Y座標を逆順に（上が比率尺度）
+    # 階層構造を表で表示
+    hierarchy_data = {
+        '尺度水準': ['比率尺度', '間隔尺度', '順序尺度', '名義尺度'],
+        '持つ性質': [
+            '分類・順序・等間隔・絶対零点',
+            '分類・順序・等間隔',
+            '分類・順序',
+            '分類'
+        ],
+        '具体例': [
+            '身長、体重、年収',
+            '温度(℃)、偏差値',
+            '成績、満足度',
+            '性別、血液型'
+        ],
+        '可能な統計処理': [
+            'すべての統計処理',
+            '平均値、分散（比は不可）',
+            '中央値、順位相関',
+            '最頻値、カイ二乗検定'
+        ]
+    }
 
-    for level, props, color, width, y_pos, example in zip(levels, properties, colors, pyramid_widths, y_positions, examples):
-        # 各層の矩形を作成
-        x_center = 0
-        x_left = x_center - width/2
-        x_right = x_center + width/2
+    hierarchy_df = pd.DataFrame(hierarchy_data)
 
-        fig.add_shape(
-            type="rect",
-            x0=x_left, y0=y_pos,
-            x1=x_right, y1=y_pos + 0.8,
-            fillcolor=color,
-            line=dict(color="white", width=3),
-            opacity=0.9
-        )
-
-        # レベル名をより目立つように
-        fig.add_annotation(
-            x=x_center,
-            y=y_pos + 0.6,
-            text=f"<b>{level}</b>",
-            showarrow=False,
-            font=dict(size=14, color="white", family="Arial"),
-            align="center"
-        )
-
-        # 属性を別行で表示
-        fig.add_annotation(
-            x=x_center,
-            y=y_pos + 0.35,
-            text=f"{'・'.join(props)}",
-            showarrow=False,
-            font=dict(size=10, color="white", family="Arial"),
-            align="center"
-        )
-
-        # 例を別行で表示
-        fig.add_annotation(
-            x=x_center,
-            y=y_pos + 0.15,
-            text=f"<i>{example}</i>",
-            showarrow=False,
-            font=dict(size=9, color="white", family="Arial"),
-            align="center"
-        )
-    
-    # レイアウト設定
-    fig.update_layout(
-        title=dict(
-            text="尺度水準の階層構造（包含関係）",
-            font=dict(size=18, family="Arial"),
-            x=0.5
-        ),
-        xaxis=dict(
-            showgrid=False,
-            showticklabels=False,
-            zeroline=False,
-            range=[-5, 5]  # 範囲を拡大
-        ),
-        yaxis=dict(
-            showgrid=False,
-            showticklabels=False,
-            zeroline=False,
-            range=[-0.8, 4.5]  # 下側の余白を増加
-        ),
-        plot_bgcolor='rgba(0,0,0,0)',
-        paper_bgcolor='rgba(0,0,0,0)',
-        height=500,  # 高さを増加
-        showlegend=False,
-        margin=dict(l=50, r=50, t=80, b=80)  # マージンを調整
+    # スタイル付きの表を表示
+    st.dataframe(
+        hierarchy_df,
+        use_container_width=True,
+        hide_index=True
     )
 
-    # 階層の矢印を追加
-    for i in range(len(levels) - 1):
-        fig.add_annotation(
-            x=0, y=y_positions[i] - 0.1,
-            ax=0, ay=y_positions[i+1] + 0.9,
-            arrowhead=2,
-            arrowsize=1,
-            arrowwidth=2,
-            arrowcolor="gray"
-        )
-
-    # 上部に説明を追加
-    fig.add_annotation(
-        x=0,
-        y=4.3,
-        text="<b>上位の尺度ほど多くの統計的操作が可能</b>",
-        showarrow=False,
-        font=dict(size=14, color="darkblue", family="Arial"),
-        align="center"
-    )
-
-    # 下部に説明を追加
-    fig.add_annotation(
-        x=0,
-        y=-0.5,
-        text="比率尺度は全ての性質を含む最も情報量の多い尺度",
-        showarrow=False,
-        font=dict(size=12, color="gray", family="Arial"),
-        align="center"
-    )
-    
-    st.plotly_chart(fig, use_container_width=True)
+    st.info("💡 **階層の特徴**: 上位の尺度ほど多くの統計的操作が可能で、比率尺度は最も情報量が多い尺度です。")
 
 def display_detailed_explanation():
     """詳細解説のページ"""
@@ -700,16 +602,20 @@ def display_data_analysis():
             else:
                 st.info("左に偏った分布（負の歪み）です")
 
-# メインの実行部分
-if page == "基本概念":
+# メインの実行部分（タブ形式）
+with tab1:
     display_basic_concepts()
-elif page == "詳細解説":
+
+with tab2:
     display_detailed_explanation()
-elif page == "実践例":
+
+with tab3:
     display_practical_examples()
-elif page == "クイズ":
+
+with tab4:
     display_quiz()
-elif page == "データ分析体験":
+
+with tab5:
     display_data_analysis()
 
 # フッター
