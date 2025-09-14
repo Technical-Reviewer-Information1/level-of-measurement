@@ -9,7 +9,6 @@ import random
 st.set_page_config(
     page_title="データの尺度水準",
     page_icon="📊",
-    layout="wide"
 )
 
 # ページ選択をメインエリアに配置
