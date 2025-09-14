@@ -12,7 +12,10 @@ st.set_page_config(
 )
 
 # ページ選択をメインエリアに配置
-st.title("データの尺度水準（pp.12-13）")
+st.title("データの尺度水準（pp.12-13）") 
+st.caption("Created by Dit-Lab.(Daiki ITO) ")
+st.caption("Supported by Tomoaki ATSUMI")
+    
 # タブでページ選択
 tab1, tab2, tab3, tab4, tab5 = st.tabs(["基本概念", "詳細解説", "実践例", "クイズ", "データ分析体験"])
 
@@ -25,11 +28,7 @@ if 'quiz_total' not in st.session_state:
     st.session_state.quiz_total = 0
 
 def display_basic_concepts():
-    """基本概念のページ"""
-    st.header("📚 尺度水準学習Webアプリケーション")
-    st.caption("Created by Dit-Lab.(Daiki ITO) ")
-    st.caption("Supported by Tomoaki ATSUMI")
-    
+    """基本概念のページ"""    
     st.markdown("""
     ## 尺度水準とは？
     
