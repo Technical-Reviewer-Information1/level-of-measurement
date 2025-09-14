@@ -8,14 +8,14 @@ import random
 
 # ページ設定
 st.set_page_config(
-    page_title="尺度水準学習アプリ",
+    page_title="データの尺度水準",
     page_icon="📊",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
 # サイドバーでページ選択
-st.sidebar.title("📊 尺度水準学習アプリ")
+st.sidebar.title("データの尺度水準（pp.12-13）")
 page = st.sidebar.selectbox(
     "学習ページを選択",
     ["基本概念", "詳細解説", "実践例", "クイズ", "データ分析体験"]
