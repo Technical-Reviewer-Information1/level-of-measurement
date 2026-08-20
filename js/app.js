@@ -140,6 +140,7 @@
     showScale('nominal');
     startQuiz();
     startJudge();
+    if (window.Terms) { window.Terms.glossary(document.getElementById('glossBox'), ["尺度水準", "名義尺度", "順序尺度", "間隔尺度", "比例尺度", "平均値", "中央値", "最頻値", "代表値"]); window.Terms.attach(); }
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
