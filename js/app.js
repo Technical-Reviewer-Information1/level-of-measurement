@@ -128,6 +128,12 @@
     $('jNext').disabled = false;
   }
 
+  /* 本文の問題 */
+  function drawBook() {
+    if (!document.getElementById('bookBox')) return;
+    window.Quiz.choice('bookBox', 'bookNote', [{"k": "ア", "q": "「依頼日：2025年12月10日」から得られるデータの尺度水準は。", "ch": ["名義尺度", "順序尺度", "間隔尺度", "比例尺度"], "a": 2, "why": "日付は目盛りの間隔が等しいが、原点（0年）に「無い」という意味がないので<strong>間隔尺度</strong>です。"}, {"k": "イ", "q": "「依頼者名：山田 太郎」の尺度水準は。", "ch": ["名義尺度", "順序尺度", "間隔尺度", "比例尺度"], "a": 0, "why": "区別するためだけの情報なので<strong>名義尺度</strong>です。"}, {"k": "ウ", "q": "「注文個数：5個」の尺度水準は。", "ch": ["名義尺度", "順序尺度", "間隔尺度", "比例尺度"], "a": 3, "why": "0個に「無い」という意味があり、2倍・3倍が言えるので<strong>比例尺度</strong>です。"}, {"k": "エ", "q": "「配達希望時間帯：午前中／12〜14時／…」の尺度水準は。", "ch": ["名義尺度", "順序尺度", "間隔尺度", "比例尺度"], "a": 1, "why": "早い順という<strong>順序</strong>はあるが、間隔が等しいとは限らないので順序尺度です。"}, {"k": "オ", "q": "a〜d の記述のうち、正しいものはいくつあるか。", "ch": ["正しいものはない", "1つ", "2つ", "3つ", "すべて合っている"], "a": 3, "why": "a（都道府県の並び順＝順序尺度）・b（順位＝順序尺度）・c（西暦＝間隔尺度）は正しい。d は<strong>血圧の0mmHgは現実には存在せず</strong>、比例尺度とはいえないので誤りです。よって3つ。"}], "本文の答えは【ア】②　【イ】⓪　【ウ】③　【エ】①　【オ】③ です。");
+  }
+
   function init() {
     document.querySelectorAll('[data-scale]').forEach(b =>
       b.addEventListener('click', () => showScale(b.dataset.scale)));
@@ -140,6 +146,7 @@
     showScale('nominal');
     startQuiz();
     startJudge();
+    drawBook();
     if (window.Terms) { window.Terms.glossary(document.getElementById('glossBox'), ["尺度水準", "名義尺度", "順序尺度", "間隔尺度", "比例尺度", "平均値", "中央値", "最頻値", "代表値"]); window.Terms.attach(); }
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
