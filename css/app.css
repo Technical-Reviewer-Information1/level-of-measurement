@@ -1,0 +1,26 @@
+/* 尺度水準アプリ固有スタイル */
+.qhead{display:flex; justify-content:space-between; align-items:center; margin-bottom:12px}
+
+.card-q{
+  border:1px solid var(--rule); background:var(--paper); padding:26px 18px; text-align:center; margin-bottom:14px;
+}
+.q-var{font-size:1.5rem; font-weight:700; letter-spacing:.02em}
+.q-sub{font-size:.82rem; color:var(--ink-2); margin-top:6px}
+.j-stmt{font-size:1.02rem; font-weight:700; line-height:1.9; text-align:left}
+
+.choice4{display:grid; gap:8px; grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
+.choice4 .btn{font-size:.92rem}
+.choice4 .btn.correct{background:var(--ok-bg); border-color:var(--ok); color:var(--ok)}
+.choice4 .btn.wrong{background:var(--ng-bg); border-color:var(--ng); color:var(--ng)}
+.choice4.locked{pointer-events:none}
+
+#opTable td{text-align:center; font-weight:700}
+#opTable td:first-child{text-align:left; font-weight:400}
+#opTable .yes{color:var(--ok)}
+#opTable .no{color:var(--ink-3)}
+#opTable th.on, #opTable td.on{background:var(--accent-w)}
+
+#sExamples ul{margin:0; padding-left:1.2em; font-size:.9rem; color:var(--ink-2); line-height:1.95}
+
+#review .r-item{border-left:3px solid var(--ng); background:var(--ng-bg); padding:9px 12px; margin-bottom:8px; font-size:.87rem}
+#review .r-item b{display:block; color:var(--ink)}

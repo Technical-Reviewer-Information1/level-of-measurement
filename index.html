@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>データの尺度水準｜情報Ⅰ共通テスト対策問題集</title>
+<meta name="description" content="同じ「数字」でも、足し算していいものと、してはいけないものがあります。変数を4つの尺度に仕分けながら、その境目を見つけましょう。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 fill=%22%2315181c%22/%3E%3Ctext x=%2216%22 y=%2222%22 font-size=%2218%22 font-family=%22monospace%22 fill=%22%23fff%22 text-anchor=%22middle%22%3E01%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
+<header class="app-header">
+  <div class="inner">
+    <span class="eyebrow">第 1 章　データの活用　1-1</span>
+    <h1>データの尺度水準（pp.12-13）</h1>
+    <p class="lead">同じ「数字」でも、足し算していいものと、してはいけないものがあります。変数を4つの尺度に仕分けながら、その境目を見つけましょう。</p>
+    <p class="credit">Created by Dit-Lab.(Daiki ITO)　/　Supported by Tomoaki ATSUMI</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="step" id="step1">
+    <h2><span class="no">STEP 1</span>4つの尺度を確かめる</h2>
+    <p class="desc">尺度水準とは「そのデータにどんな計算が許されるか」の分類です。下のタブで4つを見比べてください。</p>
+
+    <div class="seg" role="group" aria-label="尺度の切り替え">
+      <button data-scale="nominal" aria-pressed="true">名義尺度</button>
+      <button data-scale="ordinal" aria-pressed="false">順序尺度</button>
+      <button data-scale="interval" aria-pressed="false">間隔尺度</button>
+      <button data-scale="ratio" aria-pressed="false">比率尺度</button>
+    </div>
+
+    <div class="grid c2" style="margin-top:18px">
+      <div>
+        <h3 id="sName" style="font-size:1.05rem"></h3>
+        <p id="sDesc" style="margin-top:8px;color:var(--ink-2);font-size:.92rem"></p>
+        <div class="panel" style="margin-top:14px">
+          <h3>あてはまる例</h3>
+          <div id="sExamples"></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>できる計算・使える代表値</h3>
+        <div class="tbl-scroll">
+          <table class="tbl" id="opTable">
+            <thead><tr><th>できること</th><th>名義</th><th>順序</th><th>間隔</th><th>比率</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <p style="font-size:.8rem;color:var(--ink-2);margin-top:10px">上にいくほど制約がゆるく、下にいくほど強い情報を持ちます。<strong>下の尺度は上の尺度にできることを全部できます。</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="step" id="step2">
+    <h2><span class="no">STEP 2</span>仕分けてみる</h2>
+    <p class="desc">出てきた変数がどの尺度かを選んでください。まちがえても大丈夫。理由がその場で出ます。</p>
+
+    <div class="panel">
+      <div class="qhead">
+        <span class="badge" id="qProgress">1 / 1</span>
+        <span class="badge">正解 <span class="score" id="qScore">0</span></span>
+      </div>
+      <div class="card-q" id="qCard">
+        <div class="q-var" id="qVar"></div>
+        <div class="q-sub" id="qSub"></div>
+      </div>
+      <div class="choice4" id="qChoices"></div>
+      <div class="note" id="qFb" hidden style="margin-top:12px"></div>
+      <div class="btn-row" style="margin-top:12px">
+        <button class="btn primary" id="qNext" disabled>次の問題</button>
+        <button class="btn ghost" id="qReset">最初から</button>
+      </div>
+    </div>
+
+    <div class="panel" id="reviewBox" hidden style="margin-top:14px">
+      <h3>まちがえた問題の振り返り</h3>
+      <div id="review"></div>
+    </div>
+  </section>
+
+  <section class="step" id="step3">
+    <h2><span class="no">STEP 3</span>その計算、していい？</h2>
+    <p class="desc">共通テストでよく問われるのはここです。文が正しいか正しくないかを判定してください。</p>
+
+    <div class="panel">
+      <div class="qhead">
+        <span class="badge" id="jProgress">1 / 1</span>
+        <span class="badge">正解 <span class="score" id="jScore">0</span></span>
+      </div>
+      <div class="card-q"><div class="j-stmt" id="jText"></div></div>
+      <div class="btn-row" style="justify-content:center;gap:14px">
+        <button class="btn" id="jOk" style="min-width:150px">正しい</button>
+        <button class="btn" id="jNg" style="min-width:150px">正しくない</button>
+      </div>
+      <div class="note" id="jFb" hidden style="margin-top:12px"></div>
+      <div class="btn-row" style="margin-top:12px">
+        <button class="btn primary" id="jNext" disabled>次の問題</button>
+        <button class="btn ghost" id="jReset">最初から</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="step">
+    <h2><span class="no">まとめ</span>見分け方の順番</h2>
+    <ol style="margin:0;padding-left:1.3em;color:var(--ink-2);font-size:.92rem;line-height:2.1">
+      <li><strong>大小に意味があるか？</strong> ないなら<strong>名義尺度</strong>（背番号・血液型）。</li>
+      <li>大小に意味がある。では<strong>差に意味があるか？</strong> ないなら<strong>順序尺度</strong>（順位・震度）。</li>
+      <li>差に意味がある。では<strong>0 が「無い」を意味するか？</strong> しないなら<strong>間隔尺度</strong>（摂氏温度・西暦）。</li>
+      <li>0 が「無い」を意味する。＝<strong>比率尺度</strong>（身長・金額）。<strong>倍で語れるのはここだけ</strong>。</li>
+    </ol>
+  </section>
+
+</main>
+
+<footer class="app-footer">
+  情報Ⅰ 共通テスト対策問題集（技術評論社）連動Webアプリ　/　Created by Dit-Lab.(Daiki ITO)　/　Supported by Tomoaki ATSUMI
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
