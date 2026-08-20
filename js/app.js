@@ -2,7 +2,7 @@
   'use strict';
   const D = window.LOM, $ = id => document.getElementById(id);
   const KEY = { nominal: 'n', ordinal: 'o', interval: 'i', ratio: 'r' };
-  const LABEL = { nominal: '名義尺度', ordinal: '順序尺度', interval: '間隔尺度', ratio: '比率尺度' };
+  const LABEL = { nominal: '名義尺度', ordinal: '順序尺度', interval: '間隔尺度', ratio: '比例尺度' };
   const ORDER = ['nominal', 'ordinal', 'interval', 'ratio'];
 
   /* ---------- STEP1 ---------- */
