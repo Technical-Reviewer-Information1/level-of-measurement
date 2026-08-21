@@ -147,6 +147,30 @@
     startQuiz();
     startJudge();
     drawBook();
+    Worksheet.make('wsBox', {
+      name: 'level-of-measurement',
+      fields: [
+        { id: 'l1', label: '① 調べたいこと', hint: '問いの形で。', rows: 2, ph: '例：睡眠時間と、朝の集中度に関係はあるか' },
+        { id: 'l2', label: '② 集める項目と、その尺度', hint: '名義／順序／間隔／比例。1項目ずつ書く。', rows: 4,
+          ph: '例：\n・学年（1・2・3年）→ 順序尺度\n・睡眠時間（時間）→ 比例尺度\n・集中度（5段階）→ 順序尺度\n・部活の種類 → 名義尺度' },
+        { id: 'l3', label: '③ その尺度でしてよい計算', hint: '平均が出せるのはどれか。順番だけのものはどうするか。', rows: 3,
+          ph: '例：睡眠時間は平均が出せる。5段階の集中度は本来は中央値。学年は平均に意味がない' },
+        { id: 'l4', label: '④ やってしまいがちな誤り', hint: '自分の計画のなかで危ないところ。', rows: 3,
+          ph: '例：5段階評価の平均を「3.7点」と出して差を語ってしまう／学年の平均を求めてしまう' },
+        { id: 'l5', label: '⑤ どう分析するか', hint: 'グラフの種類まで決めておく。', rows: 3,
+          ph: '例：睡眠時間と集中度は散布図。部活の種類ごとの比較は箱ひげ図' }
+      ],
+      build: function (v, e) {
+        return '<h4>データ設計シート（尺度水準）</h4><dl>' +
+          '<dt>① 調べたいこと</dt><dd>' + e(v.l1) + '</dd>' +
+          '<dt>② 項目と尺度</dt><dd>' + e(v.l2) + '</dd>' +
+          '<dt>③ してよい計算</dt><dd>' + e(v.l3) + '</dd>' +
+          '<dt>④ 気をつける誤り</dt><dd>' + e(v.l4) + '</dd>' +
+          '<dt>⑤ 分析の方法・グラフ</dt><dd>' + e(v.l5) + '</dd></dl>';
+      },
+      note: 'データを集めてから尺度を考えると、使えない項目が出てきます。<strong>集める前に決める</strong>のがコツです。'
+    });
+
     if (window.Terms) { window.Terms.glossary(document.getElementById('glossBox'), ["尺度水準", "名義尺度", "順序尺度", "間隔尺度", "比例尺度", "平均値", "中央値", "最頻値", "代表値"]); window.Terms.attach(); }
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
